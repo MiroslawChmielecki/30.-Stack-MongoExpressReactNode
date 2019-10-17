@@ -20,6 +20,7 @@ class SinglePost extends React.Component {
       return (
         <article>
           <SmallTitle>{post.title}</SmallTitle>
+          <p>Author: {post.author}</p>
           <HtmlBox>{post.content}</HtmlBox>
         </article>
       );
@@ -40,6 +41,7 @@ SinglePost.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired
     })
   ),
