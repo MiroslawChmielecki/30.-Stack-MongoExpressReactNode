@@ -1,9 +1,6 @@
 import React from "react";
+import PostForm from "../../features/PostForm/PostFormContainer";
 
-const AddPostPage = () => (
-  <div>
-    <h1>Add post</h1>
-  </div>
-);
+const AddPostPage = () => <PostForm />;
 
 export default AddPostPage;

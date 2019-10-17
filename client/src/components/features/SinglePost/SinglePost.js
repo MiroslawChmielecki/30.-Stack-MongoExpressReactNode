@@ -8,8 +8,9 @@ import SmallTitle from "../../common/SmallTitle/SmallTitle";
 
 class SinglePost extends React.Component {
   componentDidMount() {
-    const { loadPost, id } = this.props;
+    const { loadPost, id, resetRequest } = this.props;
     loadPost(id);
+    resetRequest();
   }
 
   render() {
