@@ -3,20 +3,46 @@ import { PropTypes } from "prop-types";
 import PostsList from "../PostsList/PostsList";
 import Spinner from "../../common/Spinner/Spinner";
 import Alert from "../../common/Alert/Alert";
+import Pagination from "../../common/Pagination/Pagination";
 
 class Posts extends React.Component {
   componentDidMount() {
-    const { loadPosts, resetRequest } = this.props;
-    loadPosts();
+    const {
+      loadPostsByPage,
+      initialPage,
+      postsPerPage,
+      resetRequest
+    } = this.props;
     resetRequest();
+    loadPostsByPage(initialPage || 1, postsPerPage);
   }
 
-  render() {
-    const { posts, request } = this.props;
-    const { pending, success, error } = request;
+  loadPostsPage = page => {
+    const { loadPostsByPage, postsPerPage } = this.props;
+    loadPostsByPage(page, postsPerPage);
+  };
 
-    if (pending === false && success === true && posts.length > 0)
-      return <PostsList posts={posts} />;
+  render() {
+    const { posts, request, pages, pagination, presentPage } = this.props;
+    const { pending, success, error } = request;
+    const { loadPostsPage } = this;
+
+    if (
+      pending === false &&
+      success === true &&
+      posts.length > 0 &&
+      pagination === true
+    )
+      return (
+        <div>
+          <PostsList posts={posts} />
+          <Pagination
+            pages={pages}
+            onPageChange={loadPostsPage}
+            initialPage={presentPage}
+          />
+        </div>
+      );
     else if (pending === true || success === null) return <Spinner />;
     else if (pending === false && error !== null)
       return <Alert variant="error">{error}</Alert>;
@@ -37,7 +63,8 @@ Posts.propTypes = {
       content: PropTypes.string.isRequired
     })
   ),
-  loadPosts: PropTypes.func.isRequired
+  loadPostsByPage: PropTypes.func.isRequired,
+  resetRequest: PropTypes.func.isRequired
 };
 
 export default Posts;
