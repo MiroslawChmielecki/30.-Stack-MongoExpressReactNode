@@ -67,4 +67,10 @@ Posts.propTypes = {
   resetRequest: PropTypes.func.isRequired
 };
 
+Posts.defaultProps = {
+  initialPage: 1,
+  postsPerPage: 10,
+  pagination: true
+};
+
 export default Posts;
