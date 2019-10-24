@@ -10,11 +10,17 @@ class Posts extends React.Component {
     const {
       loadPostsByPage,
       initialPage,
-      postsPerPage,
-      resetRequest
+      postsPerPage
+      //resetRequest
     } = this.props;
-    resetRequest();
+
+    //resetRequest();
     loadPostsByPage(initialPage || 1, postsPerPage);
+  }
+
+  componentWillUnmount() {
+    const { resetRequest } = this.props;
+    resetRequest();
   }
 
   loadPostsPage = page => {
@@ -65,6 +71,12 @@ Posts.propTypes = {
   ),
   loadPostsByPage: PropTypes.func.isRequired,
   resetRequest: PropTypes.func.isRequired
+};
+
+Posts.defaultProps = {
+  initialPage: 1,
+  postsPerPage: 10,
+  pagination: true
 };
 
 export default Posts;
