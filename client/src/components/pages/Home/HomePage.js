@@ -5,7 +5,7 @@ import Posts from "../../features/Posts/PostsContainer";
 const HomePage = () => (
   <div>
     <PageTitle>Blog</PageTitle>
-    <Posts postsPerPage={3} pagination={false} />
+    <Posts pagination={false} postsPerPage={3} />
   </div>
 );
 

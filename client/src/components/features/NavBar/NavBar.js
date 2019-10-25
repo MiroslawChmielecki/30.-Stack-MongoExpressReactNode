@@ -12,9 +12,9 @@ class NavBar extends React.Component {
       { path: "/contact", title: "Contact" }
     ]
   };
+
   render() {
     const { links } = this.state;
-
     return (
       <nav className="navbar">
         <Logo />

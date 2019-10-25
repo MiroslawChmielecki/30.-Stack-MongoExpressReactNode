@@ -7,14 +7,14 @@ import Pagination from "../../common/Pagination/Pagination";
 
 class Posts extends React.Component {
   componentDidMount() {
-    const {
-      loadPostsByPage,
-      initialPage,
-      postsPerPage,
-      resetRequest
-    } = this.props;
+    const { loadPostsByPage, initialPage, postsPerPage } = this.props;
+
+    loadPostsByPage(initialPage || 1, postsPerPage || 10);
+  }
+
+  componentWillUnmount() {
+    const { resetRequest } = this.props;
     resetRequest();
-    loadPostsByPage(initialPage || 1, postsPerPage);
   }
 
   loadPostsPage = page => {
@@ -42,6 +42,17 @@ class Posts extends React.Component {
             initialPage={presentPage}
           />
         </div>
+      );
+    else if (
+      pending === false &&
+      success === true &&
+      posts.length > 0 &&
+      pagination === false
+    )
+      return (
+        <>
+          <PostsList posts={posts} />
+        </>
       );
     else if (pending === true || success === null) return <Spinner />;
     else if (pending === false && error !== null)
